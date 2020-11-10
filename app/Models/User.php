@@ -7,9 +7,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use function PHPUnit\Framework\returnSelf;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    // 
+    public function getRouteKeyName()
+    {
+        return 'email';
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +27,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'img',
+        'role',
     ];
 
     /**
@@ -40,4 +49,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+  
+    
+    // Mutaror
+    public function getTakeImgAttribute()
+    {
+        return url('storage',  $this->img);
+    }
+
+    // King
+    public function king()
+    {
+        return auth()->user()->email == 'kafri@kafri.com' ? true : false;
+    }
 }

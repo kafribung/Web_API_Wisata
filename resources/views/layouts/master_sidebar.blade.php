@@ -40,24 +40,30 @@
                         Dashboard Saya
                     </a>
                 </li>
-                <li class="app-sidebar__heading">Akses Kontrol</li>
+                <li class="app-sidebar__heading">Manajemen Admin</li>
+                <li>
+                    <a href="/admin" class="{{ Request::segment(1) == 'admin' ? 'mm-active' : '' }}">
+                        <i class="metismenu-icon pe-7s-display2"></i>
+                        Data Admin
+                    </a>
+                </li>
                 <li>
                     <a href="" class="{{ Request::segment(1) ==  'band' ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-diamond"></i>
-                        Band
+                        Admin
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
                         <li>
                             <a href="/band">
                                 <i class="metismenu-icon"></i>
-                                All Band
+                                Data Admin
                             </a>
                         </li>
                         <li>
                             <a href="/band/create">
                                 <i class="metismenu-icon"></i>
-                                Create Band
+                                Tambah Admin
                             </a>
                         </li>
                     </ul>
@@ -136,12 +142,6 @@
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="tables-regular.html">
-                        <i class="metismenu-icon pe-7s-display2"></i>
-                        Tables
-                    </a>
                 </li>
                 <li class="app-sidebar__heading">Widgets</li>
                 <li>

@@ -1,4 +1,4 @@
-@extends('layouts.master_dash', ['title' => 'Dashboard - Band'])
+@extends('layouts.master_dash', ['title' => 'Dashboard - admin'])
 @section('content')
 <div class="app-main__inner" id="app">
     <div class="app-page-title">
@@ -8,8 +8,8 @@
                     <i class="pe-7s-display1 icon-gradient bg-premium-dark">
                     </i>
                 </div>
-                <div>Band
-                    <div class="page-title-subheading"> All band data.</div>
+                <div>admin
+                    <div class="page-title-subheading"> All admin data.</div>
                 </div>
             </div>
         </div>
@@ -22,14 +22,18 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-body"><h5 class="card-title">Table with hover</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Table with hover</h5>
+                    @if (Auth::user()->king())
+                    <a href="/admin/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i></a>
+                    @endif
                     <table class="mb-0 table table-hover">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Profile</th>
-                            <th>Band</th>
-                            <th>Genre</th>
+                            <th>Foto</th>
+                            <th>Nama</th>
+                            <th>Email</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -37,25 +41,21 @@
                         @php
                             $angkaAwal = 1
                         @endphp
-                        @forelse ($bands as $band)
+                        @forelse ($admins as $admin)
                         <tr>
                             <th scope="row">{{ $angkaAwal++ }}</th>
-                            <td><img src="{{ $band->takeImg }}" alt="Error" width="100"></td>
-                            <td>{{ $band->name }}</td>
+                            <td><img src="{{ $admin->takeImg }}" alt="Error" width="100"></td>
+                            <td>{{ $admin->name }}</td>
+                            <td>{{ $admin->email }}</td>
                             <td>
-                                <ul>
-                                    @foreach ($band->genres as $genre)
-                                    <li>{{ $genre->name }}</li>
-                                    @endforeach
-                                </ul>
-                            </td>
-                            <td>
-                                <a href="/band/{{ $band->slug }}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                <button ref="delete" v-on:click="deleteBand({{ $band->id }})" class="btn btn-danger btn-sm d-inline-block"><i class="fa fa-trash"></i></button>
+                                @if ($admin->king())
+                                <a href="/admin/{{ $admin->email }}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                <button ref="delete" v-on:click="deleteAdmin({{ $admin->id }})" class="btn btn-danger btn-sm d-inline-block"><i class="fa fa-trash"></i></button>
+                                @endif
                             </td>
                         </tr>    
                         @empty
-                            <h2>The Band is null</h2>
+                            <h2>The admin is null</h2>
                         @endforelse
                         </tbody>
                     </table>
@@ -64,6 +64,7 @@
         </div>
     </div>
 </div>
+
 @push('script_vue_js_axios_sweet')
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>   
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
@@ -72,7 +73,7 @@
         var app = new Vue({
             el: '#app',
             methods: {
-                deleteBand(id) {
+                deleteAdmin(id) {
                     swal({
                             title: "Are you sure?",
                             text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -86,7 +87,8 @@
                                     icon: "success",
                                 });
                                 axios
-                                    .delete(`/band/${id}`)
+                                    // .delete(`/admin/${id}`)
+                                    .delete('/admin/' . id)
                                     .then((response) => {
                                         console.log(response.data)
                                     });

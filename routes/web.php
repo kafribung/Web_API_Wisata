@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Backend\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\{AdminController, DashboardController};
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +20,9 @@ Route::get('/', function () {
 
 Route::middleware('admin')->group(function(){
     Route::get('/dashboard', DashboardController::class);
+    Route::resource('/admin', AdminController::class);
+
 });
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
