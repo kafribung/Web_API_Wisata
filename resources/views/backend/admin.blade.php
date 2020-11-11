@@ -74,6 +74,7 @@
             el: '#app',
             methods: {
                 deleteAdmin(id) {
+
                     swal({
                             title: "Are you sure?",
                             text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -88,11 +89,11 @@
                                 });
                                 axios
                                     // .delete(`/admin/${id}`)
-                                    .delete('/admin/' . id)
+                                    .delete('/admin/' + id)
                                     .then((response) => {
-                                        console.log(response.data)
+                                        console.log(id);
                                     });
-                                this.$refs.delete.parentNode.parentNode.remove();
+                                    this.$refs.delete.parentNode.parentNode.remove();
                             } else {
                                 swal("Your imaginary file is safe!");
                             }

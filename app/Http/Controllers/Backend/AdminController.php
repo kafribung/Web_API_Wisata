@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Backend\AdminRequest;
 
 class AdminController extends Controller
@@ -47,18 +48,32 @@ class AdminController extends Controller
     // Edit
     public function edit(User $admin)
     {
-        return view('')
+        return view('backend_edit.admin_edit', compact('admin'));
     }
 
     // / Update
-    public function update(Request $request, $id)
+    public function update(Request $request, User $admin)
     {
-        //
+        $data =  $request->validate([
+            'img'    => ['required', 'mimes:,jpeg'],
+            'name'   => ['required', 'string', 'min:3', 'max:20'],
+            'email'  => ['required', 'string', 'email', 'max:30'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if ($img = $request->file('img')) {
+            $admin->img == 'img_users/default_user.jpg' ?  : Storage::delete($admin->img);
+            $data['img'] = $img->storeAs('img_users', time(). '.' . $img->getClientOriginalExtension());
+        }
+        $data['password'] = bcrypt($request->password);
+        $admin->update($data);
+        return redirect('/admin')->with('msg', 'Data Admin Berhasil diupdate');
     }
 
     // Destroy
     public function destroy($id)
     {
-        //
+        $admin = User::findOrFail();
+        $admin->img == 'img_users/default_user.jpg' ?  : Storage::delete($admin->img);
+        $admin->delete();
     }
 }
