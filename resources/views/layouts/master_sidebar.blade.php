@@ -51,7 +51,7 @@
                 
                 <li class="app-sidebar__heading">Wisata</li>
                 <li>
-                    <a href="" class="{{ Request::segment(1) ==  'travel' ? 'mm-active' : '' }}">
+                    <a href="" class="{{ Request::segment(1) ==  'travel' ? 'mm-active' : '' }} {{ Request::segment(1) ==  'travel-img' ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-diamond"></i>
                         Wisata
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Travel extends Model
 {
     use HasFactory;
-    
+
     // RouteKeyName
     public function getRouteKeyName()
     {
@@ -30,7 +30,7 @@ class Travel extends Model
     // Relation one to many
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Models\User');
     }
 
     // Mutator

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Travel;
+use App\Models\{Travel, User};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TravelFactory extends Factory
@@ -22,7 +22,12 @@ class TravelFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'bg'          => 'img_travels/default_travel.jpg',
+            'name'        => $this->faker->sentence(),
+            'description' => $this->faker->paragraph(10),
+            'location'    => $this->faker->streetName(),
+            'slug'        => \Str::slug($this->faker->sentence()),
+            'user_id'     => User::factory(),
         ];
     }
 }

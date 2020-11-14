@@ -17,4 +17,10 @@ class Travelimage extends Model
     {
         return $this->belongsTo(Travel::class);
     }
+
+     // Mutator
+    public function getTakeImgAttribute()
+    {
+        return url('storage', $this->img);
+    }
 }

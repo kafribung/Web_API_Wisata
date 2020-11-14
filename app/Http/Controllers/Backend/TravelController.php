@@ -57,7 +57,7 @@ class TravelController extends Controller
         $this->authorize('isOwner', $travel);
         $data = $request->all();
         if ($bg = $request->file('bg')) {
-            $travel->bg == 'default_travel.jpg' ? : Storage::delete($travel->bg);
+            $travel->bg == 'img_travels/default_travel.jpg' ? null : Storage::delete($travel->bg);
             $data['bg'] = $bg->storeAs('img_travels', time(). '.' . $bg->getClientOriginalExtension());
         }
         $data['slug'] = \Str::slug($request->name);
@@ -73,7 +73,7 @@ class TravelController extends Controller
     {
         $travel = Travel::findOrFail($id);
         $this->authorize('isOwner', $travel);
-        $travel->bg == 'default_travel.jpg' ? : Storage::delete($travel->bg);
+        $travel->bg == 'img_travels/default_travel.jpg' ? null : Storage::delete($travel->bg);
         $travel->delete();
     }
 }

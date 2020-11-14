@@ -61,7 +61,7 @@ class AdminController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         if ($img = $request->file('img')) {
-            $admin->img == 'img_users/default_user.jpg' ?  : Storage::delete($admin->img);
+            $admin->img == 'img_users/default_user.jpg' ? null : Storage::delete($admin->img);
             $data['img'] = $img->storeAs('img_users', time(). '.' . $img->getClientOriginalExtension());
         }
         $data['password'] = bcrypt($request->password);
@@ -72,8 +72,8 @@ class AdminController extends Controller
     // Destroy
     public function destroy($id)
     {
-        $admin = User::findOrFail();
-        $admin->img == 'img_users/default_user.jpg' ?  : Storage::delete($admin->img);
+        $admin = User::findOrFail($id);
+        $admin->img == 'img_users/default_user.jpg' ?  null : Storage::delete($admin->img);
         $admin->delete();
     }
 }

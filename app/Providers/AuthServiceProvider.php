@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         Gate::before(function(User $user){
-            return $user->isAdmin() ? Response::allow() : Response::deny('Anda bukan ownernya'); 
+            return $user->isAdmin() ? true : null; 
         });
     }
 }

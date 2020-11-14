@@ -64,7 +64,7 @@ class User extends Authenticatable
     }
 
     // IsAdmin
-    public function isAdmin()
+    public function isAdmin() 
     {
         return $this->email == "kafri@kafri.com";
     }
@@ -72,6 +72,6 @@ class User extends Authenticatable
     // Relation one to many
     public function travels()
     {
-        return $this->hasMany(Travel::class);
+        return $this->hasMany('App\Models\Travel');
     }
 }

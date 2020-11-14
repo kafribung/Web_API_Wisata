@@ -21,6 +21,6 @@ class TravelPolicy
 
     public function isOwner(User $user,  Travel $travel)
     {
-        return  $user->id == $travel->user_id;
+        return  $user->id === $travel->user_id;
     }
 }

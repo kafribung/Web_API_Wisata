@@ -1,4 +1,4 @@
-@extends('layouts.master_dash', ['title' => 'Dashboard - admin'])
+@extends('layouts.master_dash', ['title' => 'Dashboard - gambar wisata '])
 @section('content')
 <div class="app-main__inner" id="app">
     <div class="app-page-title">
@@ -8,8 +8,8 @@
                     <i class="pe-7s-display1 icon-gradient bg-premium-dark">
                     </i>
                 </div>
-                <div>admin
-                    <div class="page-title-subheading"> All admin data.</div>
+                <div>gambar wisata 
+                    <div class="page-title-subheading"> Data gambar wisata.</div>
                 </div>
             </div>
         </div>
@@ -19,21 +19,19 @@
         <p class="alert alert-success">{{  session('msg') }}</p>
     </div>
     @endif
-    <div class="row">
+    <div class="row" id="app">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <h5 class="card-title">Table with hover</h5>
-                    @if (Auth::user()->king())
-                    <a href="/admin/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i></a>
-                    @endif
+                    <a href="/travel-img/{{ $travel->slug }}/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i></a>
                     <table class="mb-0 table table-hover">
                         <thead>
                         <tr>
                             <th>#</th>
                             <th>Foto</th>
-                            <th>Nama</th>
-                            <th>Email</th>
+                            <th>Wisata</th>
+                            <th>Author</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -41,21 +39,25 @@
                         @php
                             $angkaAwal = 1
                         @endphp
-                        @forelse ($admins as $admin)
+                        @forelse ($travel->travelImages()->latest()->get() as $travelImage)
                         <tr>
                             <th scope="row">{{ $angkaAwal++ }}</th>
-                            <td><img src="{{ $admin->takeImg }}" alt="Error" width="100"></td>
-                            <td>{{ $admin->name }}</td>
-                            <td>{{ $admin->email }}</td>
+                            <td><img src="{{ $travelImage->takeImg }}" alt="Error" width="100"></td>
+                            <td>{{ $travelImage->travel->name }}</td>
+                            <td>{{ $travelImage->travel->user->name }}</td>
                             <td>
-                                @if ($admin->king())
-                                <a href="/admin/{{ $admin->email }}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                <button ref="deleteAdmin" v-on:click="deleteAdmin({{ $admin->id }})" class="btn btn-danger btn-sm d-inline-block"><i class="fa fa-trash"></i></button>
-                                @endif
+                                <a href="/travel-img/{{ $travelImage->id }}/edit"
+                                    class="btn btn-warning btn-sm m-1"><i class="fa fa-edit"></i>
+                                </a>
+                                <button type="submit"
+                                    ref="delete"
+                                    v-on:click="deleteTravelImage({{ $travelImage->id }})"
+                                    class="btn btn-danger btn-sm m-1"><i class="fa fa-trash"></i>
+                                </button>
                             </td>
                         </tr>    
                         @empty
-                            <h2>The admin is null</h2>
+                            <small class="text-info">Gambar wisata belum ditambahkan</small>
                         @endforelse
                         </tbody>
                     </table>
@@ -73,7 +75,7 @@
         var app = new Vue({
             el: '#app',
             methods: {
-                deleteAdmin(id) {
+                deleteTravelImage(id) {
 
                     swal({
                             title: "Are you sure?",
@@ -89,9 +91,9 @@
                                 });
                                 axios
                                     // .delete(`/admin/${id}`)
-                                    .delete('/admin/' + id)
+                                    .delete('/travel-img/' + id)
                                     .then((response) => {
-                                    this.$refs.deleteAdmin.parentNode.parentNode.remove();
+                                    this.$refs.delete.parentNode.parentNode.remove();
                                     location.reload();
                                     });
                             } else {
