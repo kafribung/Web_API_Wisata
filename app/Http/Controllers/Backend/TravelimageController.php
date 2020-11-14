@@ -19,12 +19,14 @@ class TravelimageController extends Controller
     // Create
     public function create(Travel $travel)
     {
+        $this->authorize('isOwner', $travel);
         return view('backend_create.travelimage_create', compact('travel'));
     }
 
     // Store
     public function store(Request $request, Travel $travel)
     {
+        $this->authorize('isOwner', $travel);
         if ($travel->travelImages()->count() >= 4) {
             return redirect('/travel-img/'. $travel->slug)->with('msg', 'Data gambar maksimal 4');
         }

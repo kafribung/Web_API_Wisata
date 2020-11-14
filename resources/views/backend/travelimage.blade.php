@@ -24,7 +24,9 @@
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <h5 class="card-title">Table with hover</h5>
+                    @can('isOwner', $travel)
                     <a href="/travel-img/{{ $travel->slug }}/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i></a>
+                    @endcan
                     <table class="mb-0 table table-hover">
                         <thead>
                         <tr>
@@ -46,6 +48,7 @@
                             <td>{{ $travelImage->travel->name }}</td>
                             <td>{{ $travelImage->travel->user->name }}</td>
                             <td>
+                                @can('isOwner', $travelImage->travel)
                                 <a href="/travel-img/{{ $travelImage->id }}/edit"
                                     class="btn btn-warning btn-sm m-1"><i class="fa fa-edit"></i>
                                 </a>
@@ -54,6 +57,7 @@
                                     v-on:click="deleteTravelImage({{ $travelImage->id }})"
                                     class="btn btn-danger btn-sm m-1"><i class="fa fa-trash"></i>
                                 </button>
+                                @endcan
                             </td>
                         </tr>    
                         @empty

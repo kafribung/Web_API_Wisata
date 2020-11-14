@@ -22,13 +22,15 @@ Route::middleware('admin')->group(function(){
     Route::get('dashboard', DashboardController::class);
     Route::resource('admin', AdminController::class);
     Route::resource('travel', TravelController::class);
-    Route::get('travel-img/{travel:slug}', [TravelimageController::class, 'index']);
-    Route::get('travel-img/{travel:slug}/create', [TravelimageController::class, 'create']);
-    Route::post('travel-img/{travel:slug}', [TravelimageController::class, 'store']);
-    Route::get('travel-img/{travelimage:id}/edit', [TravelimageController::class, 'edit']);
-    Route::patch('travel-img/{travelimage:id}', [TravelimageController::class, 'update']);
-    Route::delete('travel-img/{travelimage:id}', [TravelimageController::class, 'destroy']);
+    // Travelimg
+    Route::prefix('travel-img')->group(function(){
+        Route::get('/{travel:slug}', [TravelimageController::class, 'index']);
+        Route::get('/{travel:slug}/create', [TravelimageController::class, 'create']);
+        Route::post('/{travel:slug}', [TravelimageController::class, 'store']);
+        Route::get('/{travelimage:id}/edit', [TravelimageController::class, 'edit']);
+        Route::patch('/{travelimage:id}', [TravelimageController::class, 'update']);
+        Route::delete('/{travelimage:id}', [TravelimageController::class, 'destroy']);
+    });
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
