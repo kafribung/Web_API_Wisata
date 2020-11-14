@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\{AdminController, DashboardController};
+use App\Http\Controllers\Backend\{AdminController, DashboardController, TravelController};
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +19,9 @@ Route::get('/', function () {
 });
 
 Route::middleware('admin')->group(function(){
-    Route::get('/dashboard', DashboardController::class);
-    Route::resource('/admin', AdminController::class);
+    Route::get('dashboard', DashboardController::class);
+    Route::resource('admin', AdminController::class);
+    Route::resource('travel', TravelController::class);
 
 });
 

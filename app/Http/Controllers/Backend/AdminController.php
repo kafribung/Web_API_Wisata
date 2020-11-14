@@ -51,7 +51,7 @@ class AdminController extends Controller
         return view('backend_edit.admin_edit', compact('admin'));
     }
 
-    // / Update
+    // Update
     public function update(Request $request, User $admin)
     {
         $data =  $request->validate([

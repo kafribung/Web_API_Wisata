@@ -62,4 +62,10 @@ class User extends Authenticatable
     {
         return auth()->user()->email == 'kafri@kafri.com' ? true : false;
     }
+
+    // Relation one to many
+    public function travels()
+    {
+        return $this->hasMany(Travel::class);
+    }
 }
