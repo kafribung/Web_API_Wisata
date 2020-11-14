@@ -63,6 +63,12 @@ class User extends Authenticatable
         return auth()->user()->email == 'kafri@kafri.com' ? true : false;
     }
 
+    // IsAdmin
+    public function isAdmin()
+    {
+        return $this->email == "kafri@kafri.com";
+    }
+
     // Relation one to many
     public function travels()
     {

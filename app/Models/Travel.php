@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Travel extends Model
 {
     use HasFactory;
+    
+    // RouteKeyName
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     protected $guarded = [
         'id',

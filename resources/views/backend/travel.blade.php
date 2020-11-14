@@ -19,17 +19,19 @@
         <p class="alert alert-success">{{  session('msg') }}</p>
     </div>
     @endif
-    <div class="row">
+    <div class="row" id="app">
         @forelse ($travels as $travel)
         <div class="col-md-6 col-xl-4">
             <div class="mb-3 card card-body">
                 <h5 class="card-title">{{ $travel->name }} ({{ $travel->location }})</h5>
                 <small>{{ $travel->user->name }}</small>
-                <img src="{{ $travel->takeImg }}" class="card-img-top" alt="Error" width="200"> 
+                <img src="{{ $travel->takeImg }}" class="card-img-top" alt="Error" height="300"> 
                 <p>{{ $travel->description }}</p>
                 <a href="" class="btn btn-outline-dark mb-1 mt-2"><i class="fa fa-image"></i></a>
-                <button class="btn btn-outline-warning mb-1"><i class="fa fa-edit"></i></button>
-                <button class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+                @can('isOwner', $travel)
+                <a href="{{ route('travel.edit', $travel->slug) }}" class="btn btn-outline-warning mb-1"><i class="fa fa-edit"></i></a>
+                <button ref="delete" v-on:click='deleteTravel({{ $travel->id }})' class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+                @endcan
             </div>
         </div>
         @empty
@@ -37,4 +39,40 @@
         @endforelse
     </div>
 </div>
+@push('script_vue_js_axios_sweet')
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>   
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            methods: {
+                deleteTravel(id) {
+                    swal({
+                            title: "Are you sure?",
+                            text: "Once deleted, you will not be able to recover this imaginary file!",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                            })
+                            .then((willDelete) => {
+                            if (willDelete) {
+                                swal("Poof! Your imaginary file has been deleted!", {
+                                    icon: "success",
+                                });
+                                axios
+                                    // .delete(`/admin/${id}`)
+                                    .delete('/travel/' + id)
+                                    .then((response) => {
+                                    this.$refs.delete.parentNode.parentNode.remove();
+                                    });
+                            } else {
+                                swal("Your imaginary file is safe!");
+                            }
+                        });
+                }
+            },
+        })
+    </script>
+@endpush
 @endsection
