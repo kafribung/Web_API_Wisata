@@ -32,7 +32,7 @@
                 <h5 class="card-title">{{ $travel->name }} ({{ $travel->location }})</h5>
                 <small>{{ $travel->user->name }}</small>
                 <img src="{{ $travel->takeImg }}" class="card-img-top" alt="Error" height="300"> 
-                <p>{{ Str::limit($travel->description, 200)  }}</p>
+                <p>{!!  Str::limit($travel->description, 200)  !!}</p>
                 <a href="/travel-img/{{ $travel->slug }}" class="btn btn-outline-dark mb-1 mt-2"><i class="fa fa-image"></i></a>
                 @can('isOwner', $travel)
                 <a href="{{ route('travel.edit', $travel->slug) }}" class="btn btn-outline-warning mb-1"><i class="fa fa-edit"></i></a>

@@ -19,8 +19,16 @@ class APItravelController extends Controller
         }
     }
 
-    public function show(Travel $travel)
+    public function show()
     {
-        dd($travel);
+        try {
+            $search = urlencode(request('serach'));
+            if ($search) {
+                $travel = Travel::with('travelImages', 'user')->where('name', 'LIKE', '%' . $search .'%')->get();
+            } else return response(['message' => 'Data tidak ditemukan']);
+            return TravelResource::collection($travel);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => $th->getMessage()], 500);
+        }
     }
 }

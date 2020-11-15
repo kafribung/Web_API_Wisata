@@ -20,4 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('travel', [APItravelController::class, 'index']);
-Route::get('travel/{travel:name}', [APItravelController::class, 'show']);
+Route::get('travel/{name}', [APItravelController::class, 'show']);

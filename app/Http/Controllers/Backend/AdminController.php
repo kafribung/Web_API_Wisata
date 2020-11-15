@@ -13,7 +13,7 @@ class AdminController extends Controller
     // Read
     public function index()
     {
-        $admins = User::where('role', 1)->get();
+        $admins = User::where('role', 1)->latest()->get();
         return view('backend.admin', compact('admins'));
     }
 

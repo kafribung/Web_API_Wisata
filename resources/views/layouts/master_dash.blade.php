@@ -25,6 +25,7 @@
     @include('includes.script_dash')
     @stack('script_select_two')
     @stack('script_vue_js_axios_sweet')
+    @stack('script_ckeditor')
 </body>
 
 </html>

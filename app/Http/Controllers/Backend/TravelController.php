@@ -14,8 +14,8 @@ class TravelController extends Controller
     public function index()
     {
         $search = urlencode(request('search'));
-        if ($search)  $travels = Travel::with('travelImages')->where('name',  'LIKE', '%' . $search. '%')->paginate(9);
-        else $travels = Travel::with('travelImages')->paginate(9);
+        if ($search)  $travels = Travel::with('travelImages')->where('name',  'LIKE', '%' . $search. '%')->orderBy('id', 'desc')->paginate(9);
+        else $travels = Travel::with('travelImages')->orderBy('id', 'desc')->paginate(9);
         return view('backend.travel', compact('travels'));
     }
 
