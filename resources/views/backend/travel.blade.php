@@ -14,6 +14,12 @@
             </div>
         </div>
     </div>
+    <div class="app-header-left mb-2">
+        <form class="form-inline my-2 my-lg-0" action="/travel" method="GET">
+            <input class="form-control mr-sm-2" name="search" autocomplete="off" type="search" placeholder="Cari dong .." aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
     @if (session('msg'))
     <div class="row">
         <p class="alert alert-success">{{  session('msg') }}</p>
@@ -37,6 +43,9 @@
         @empty
             <small class="text-info">Data wisata belum ditambahkan</small>
         @endforelse
+    </div>
+    <div class="float-right">
+        {{ $travels->links() }}
     </div>
 </div>
 @push('script_vue_js_axios_sweet')

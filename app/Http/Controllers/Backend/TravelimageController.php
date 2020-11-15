@@ -27,8 +27,8 @@ class TravelimageController extends Controller
     public function store(Request $request, Travel $travel)
     {
         $this->authorize('isOwner', $travel);
-        if ($travel->travelImages()->count() >= 4) {
-            return redirect('/travel-img/'. $travel->slug)->with('msg', 'Data gambar maksimal 4');
+        if ($travel->travelImages()->count() >= 6) {
+            return redirect('/travel-img/'. $travel->slug)->with('msg', 'Data gambar maksimal 6');
         }
         $data = $request->validate([
             'img' => ['required', 'mimes:png,jpg,jpeg']

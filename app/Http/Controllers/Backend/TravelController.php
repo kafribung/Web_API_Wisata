@@ -13,7 +13,9 @@ class TravelController extends Controller
    // Read
     public function index()
     {
-        $travels = Travel::with('travelImages')->get();
+        $search = urlencode(request('search'));
+        if ($search)  $travels = Travel::with('travelImages')->where('name',  'LIKE', '%' . $search. '%')->paginate(9);
+        else $travels = Travel::with('travelImages')->paginate(9);
         return view('backend.travel', compact('travels'));
     }
 
