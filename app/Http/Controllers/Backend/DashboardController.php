@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\{User, Travel};
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
     public function __invoke()
     {
-        return view('backend.dashboard');
+        $admin  = User::where('role', 1)->count();
+        $travel = Travel::count();
+        return view('backend.dashboard', compact('admin', 'travel'));
     }
 }
