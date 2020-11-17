@@ -34,6 +34,7 @@
                 <img src="{{ $travel->takeImg }}" class="card-img-top" alt="Error" height="300"> 
                 <p>{!!  Str::limit($travel->description, 200)  !!}</p>
                 <a href="/travel-img/{{ $travel->slug }}" class="btn btn-outline-dark mb-1 mt-2"><i class="fa fa-image"></i></a>
+                <a href="/qr-code/{{ $travel->slug }}" class="btn btn-outline-light mb-1 mt-2"><i class="fa fa-qrcode"></i></a>
                 @can('isOwner', $travel)
                 <a href="{{ route('travel.edit', $travel->slug) }}" class="btn btn-outline-warning mb-1"><i class="fa fa-edit"></i></a>
                 <button ref="delete" v-on:click='deleteTravel({{ $travel->id }})' class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\{AdminController, DashboardController, TravelController, TravelimageController};
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\Backend\{AdminController, DashboardController, TravelController, TravelimageController, QrcodeController};
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ Route::middleware('admin')->group(function(){
         Route::patch('/{travelimage:id}', [TravelimageController::class, 'update']);
         Route::delete('/{travelimage:id}', [TravelimageController::class, 'destroy']);
     });
+    // QRCode
+    Route::get('qr-code/{slug}', [QrcodeController::class, 'index']);
+    Route::post('/qr-code/print', [QrcodeController::class, 'print']);
 });
 
 Auth::routes();
