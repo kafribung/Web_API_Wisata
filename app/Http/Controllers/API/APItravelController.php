@@ -12,20 +12,20 @@ class APItravelController extends Controller
     public function index()
     {
         try {
-            $travels = Travel::with('travelImages', 'user')->paginate(12);
+            $search = urlencode(request('serach'));
+            if ($search) {
+                $travels = Travel::with('travelImages', 'user')->where('name', 'LIKE', '%' . $search .'%')->paginate(12);
+            } else  $travels = Travel::with('travelImages', 'user')->paginate(12); ;
             return TravelResource::collection($travels);
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 500);
         }
     }
 
-    public function show()
+    public function show($slug)
     {
         try {
-            $search = urlencode(request('serach'));
-            if ($search) {
-                $travel = Travel::with('travelImages', 'user')->where('name', 'LIKE', '%' . $search .'%')->get();
-            } else return response(['message' => 'Data tidak ditemukan']);
+            $travel = Travel::with('travelImages', 'user')->where('slug', $slug)->get();
             return TravelResource::collection($travel);
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], 500);
