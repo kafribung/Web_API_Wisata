@@ -12,7 +12,7 @@ class APItravelController extends Controller
     public function index()
     {
         try {
-            $search = urlencode(request('serach'));
+            $search = urlencode(request('search'));
             if ($search) {
                 $travels = Travel::with('travelImages', 'user')->where('name', 'LIKE', '%' . $search .'%')->paginate(12);
             } else  $travels = Travel::with('travelImages', 'user')->paginate(12); ;

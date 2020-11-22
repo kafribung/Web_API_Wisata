@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Travel extends Model
 {
     use HasFactory;
+    //Touches
+    protected $touches = ['user'];
 
     // RouteKeyName
     public function getRouteKeyName()

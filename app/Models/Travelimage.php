@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Travelimage extends Model
 {
     use HasFactory;
+
+    //Touches
+    protected $touches = ['travel'];
+
     protected $fillable = [
         'img',
     ];
