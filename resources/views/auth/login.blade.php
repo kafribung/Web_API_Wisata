@@ -45,7 +45,6 @@
                     </div>
 
                     <div>
-
                         @if (Route::has('password.request'))
                         <a class="txt1" href="{{ route('password.request') }}">
                             {{ __('Forgot Your Password?') }}
@@ -60,6 +59,9 @@
                     </button>
                 </div>
             </form>
+            <div>
+                <a href="{{ route('privacy.index') }}" target="_blank" class="float-right p-1 text-info">privacy policy</a>
+            </div>
         </div>
     </div>
 </div>

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
-use App\Http\Controllers\Backend\{AdminController, DashboardController, TravelController, TravelimageController, QrcodeController};
+use App\Http\Controllers\Backend\{AdminController, DashboardController, PrivacyPolicyController, TravelController, TravelimageController, QrcodeController};
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +33,13 @@ Route::middleware('admin')->group(function(){
         Route::delete('/{travelimage:id}', [TravelimageController::class, 'destroy']);
     });
     // QRCode
-    Route::get('qr-code/{slug}', [QrcodeController::class, 'index']);
-    Route::post('/qr-code/print', [QrcodeController::class, 'print']);
+    Route::prefix('qr-code')->group(function(){
+        Route::get('/{slug}', [QrcodeController::class, 'index']);
+        Route::post('/print', [QrcodeController::class, 'print']);
+    });
 });
 
-Auth::routes();
+// Privacy Policy
+Route::get('privacy-policy', PrivacyPolicyController::class)->name('privacy.index');
+
+Auth::routes(['register' => false]);
